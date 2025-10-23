@@ -1,5 +1,8 @@
-import 'package:social_media/core/errors/error_message.dart';
+class Faileur {
+  final String message;
+  Faileur({required this.message});
+}
 
-class ServerFaileur extends ErrorMessage {
-  ServerFaileur(super.errorMwssage);
+class ServerFaileur extends Faileur {
+  ServerFaileur({required super.message});
 }
