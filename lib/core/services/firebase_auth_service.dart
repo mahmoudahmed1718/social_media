@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:social_media/core/errors/custom_excption.dart';
+import 'package:social_media/feature/auth/data/models/app_user_model.dart';
+import 'package:social_media/feature/auth/domain/entites/app_user.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -79,5 +82,13 @@ class FirebaseAuthService {
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
+  }
+
+  Future<AppUserEntity> saveUserData({
+    required AppUserEntity userEntity,
+  }) async {
+    var jsonData = jsonEncode(AppUserModel.fromEntity(userEntity).toJosn());
+    await SharedPreferenceSingleton.setString(kUserData, jsonData);
+    return userEntity;
   }
 }

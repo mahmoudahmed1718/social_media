@@ -19,4 +19,7 @@ class AppUserModel extends AppUserEntity {
       email: json[BackendPoint.email],
     );
   }
+  factory AppUserModel.fromEntity(AppUserEntity user) {
+    return AppUserModel(uId: user.uId, name: user.name, email: user.email);
+  }
 }
