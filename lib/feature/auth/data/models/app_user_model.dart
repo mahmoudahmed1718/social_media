@@ -4,7 +4,7 @@ import 'package:social_media/feature/auth/domain/entites/app_user.dart';
 class AppUserModel extends AppUserEntity {
   AppUserModel({required super.uId, required super.name, required super.email});
 
-  toJosn() {
+  Map<String, dynamic> toJosn() {
     return {
       BackendPoint.uId: uId,
       BackendPoint.name: name,
