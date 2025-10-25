@@ -1,10 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:social_media/feature/auth/domain/entites/app_user.dart';
+import 'package:social_media/feature/auth/domain/repo/auth_repo.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
-  //add your authentication methods here
+  final AuthRepo repo;
+  AuthCubit({required this.repo}) : super(AuthInitial());
+  Future<void> login({required String email, required String password}) async {
+    emit(AuthLoading());
+    final user = await repo.login(email: email, password: password);
+    user.fold(
+      (l) => emit(AuthFailure(l.message)),
+      (r) => emit(AuthSuccess(user: r)),
+    );
+  }
 }
