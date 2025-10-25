@@ -22,4 +22,12 @@ class AppUserModel extends AppUserEntity {
   factory AppUserModel.fromEntity(AppUserEntity user) {
     return AppUserModel(uId: user.uId, name: user.name, email: user.email);
   }
+
+  factory AppUserModel.fromFirebaseUser(user) {
+    return AppUserModel(
+      uId: user.uid,
+      name: user.displayName ?? '',
+      email: user.email ?? '',
+    );
+  }
 }
