@@ -20,9 +20,12 @@ class FirestoreService implements DatabaseService {
   Future<bool> checkDocumentExists({
     required String path,
     required String documentId,
-  }) {
-    // TODO: implement checkDocumentExists
-    throw UnimplementedError();
+  }) async {
+    DocumentSnapshot doc = await firebaseFirestore
+        .collection(path)
+        .doc(documentId)
+        .get();
+    return doc.exists;
   }
 
   @override
