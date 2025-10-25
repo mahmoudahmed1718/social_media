@@ -16,4 +16,21 @@ class AuthCubit extends Cubit<AuthState> {
       (r) => emit(AuthSuccess(user: r)),
     );
   }
+
+  Future<void> rigster({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    emit(AuthLoading());
+    final user = await repo.register(
+      name: name,
+      email: email,
+      password: password,
+    );
+    user.fold(
+      (l) => emit(AuthFailure(l.message)),
+      (r) => emit(AuthSuccess(user: r)),
+    );
+  }
 }
