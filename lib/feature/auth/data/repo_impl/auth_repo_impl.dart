@@ -47,9 +47,19 @@ class AuthRepoImpl implements AuthRepo {
     required String name,
     required String email,
     required String password,
-  }) {
-    // TODO: implement register
-    throw UnimplementedError();
+  }) async {
+    try {
+      final user = await firebaseAuthService.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+        name: name,
+      );
+      return Right(AppUserModel.fromFirebaseUser(user));
+    } on CustomException catch (e) {
+      return Left(ServerFaileur(message: e.message));
+    } catch (e) {
+      return Left(ServerFaileur(message: 'An unknown error occurred.'));
+    }
   }
 
   Future<AppUserEntity> saveUserData({
