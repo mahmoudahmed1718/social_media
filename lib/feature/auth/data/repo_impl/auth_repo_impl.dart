@@ -75,6 +75,22 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
+  @override
+  Future<Either<ServerFaileur, AppUserEntity>> getCurrentUser() async {
+    try {
+      final jsonString = SharedPreferenceSingleton.getString(kuserData);
+      if (jsonString != null) {
+        final Map<String, dynamic> userMap = jsonDecode(jsonString);
+        final userEntity = AppUserModel.fromJosn(userMap);
+        return Right(userEntity);
+      } else {
+        return Left(ServerFaileur(message: 'No user data found.'));
+      }
+    } catch (e) {
+      return Left(ServerFaileur(message: 'An unknown error occurred.'));
+    }
+  }
+
   Future<AppUserEntity> saveUserData({
     required AppUserEntity userEntity,
   }) async {

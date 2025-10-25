@@ -13,4 +13,5 @@ abstract class AuthRepo {
     required String password,
   });
   Future<void> logout();
+  Future<Either<ServerFaileur, AppUserEntity>> getCurrentUser();
 }
