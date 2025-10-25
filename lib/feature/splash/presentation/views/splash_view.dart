@@ -3,6 +3,7 @@ import 'package:social_media/feature/splash/presentation/views/widgets/splash_vi
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
+  static const String routeName = 'splash_view';
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: SplashViewBody());

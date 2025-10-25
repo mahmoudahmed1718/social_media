@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_media/core/utils/assets.dart';
+import 'package:social_media/feature/auth/presentation/views/login_view.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -100,20 +101,25 @@ class _SplashViewBodyState extends State<SplashViewBody>
   }
 
   void excuteNavigation() {
-    var isUserLoggedIn = FirebaseAuthServices().isUserLoggedIn();
+    //   var isUserLoggedIn = FirebaseAuthServices().isUserLoggedIn();
 
-    if (isUserLoggedIn) {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        HomePage.routeName,
-        (route) => false,
-      );
-    } else {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        LoginPage.routeName,
-        (route) => false,
-      );
-    }
+    //   if (isUserLoggedIn) {
+    //     Navigator.pushNamedAndRemoveUntil(
+    //       context,
+    //       HomePage.routeName,
+    //       (route) => false,
+    //     );
+    //   } else {
+    //     Navigator.pushNamedAndRemoveUntil(
+    //       context,
+    //       LoginPage.routeName,
+    //       (route) => false,
+    //     );
+    //   }
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      LoginView.routeName,
+      (route) => false,
+    );
   }
 }
