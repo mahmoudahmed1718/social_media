@@ -4,6 +4,8 @@ import 'package:dartz/dartz.dart';
 import 'package:social_media/constant.dart';
 import 'package:social_media/core/errors/custom_excption.dart';
 import 'package:social_media/core/errors/server_faileur.dart';
+import 'package:social_media/core/services/backend_point.dart';
+import 'package:social_media/core/services/database_service.dart';
 import 'package:social_media/core/services/firebase_auth_service.dart';
 import 'package:social_media/core/services/shared_prefence_singleton.dart';
 import 'package:social_media/feature/auth/data/models/app_user_model.dart';
@@ -12,7 +14,11 @@ import 'package:social_media/feature/auth/domain/repo/auth_repo.dart';
 
 class AuthRepoImpl implements AuthRepo {
   final FirebaseAuthService firebaseAuthService;
-  AuthRepoImpl({required this.firebaseAuthService});
+  final DatabaseService databaseService;
+  AuthRepoImpl({
+    required this.firebaseAuthService,
+    required this.databaseService,
+  });
   @override
   Future<Either<ServerFaileur, AppUserEntity>> login({
     required String email,
@@ -54,6 +60,13 @@ class AuthRepoImpl implements AuthRepo {
         password: password,
         name: name,
       );
+      final userEntity = AppUserEntity(
+        uId: user!.uid,
+        name: name,
+        email: email,
+      );
+      await addUserDataToFirestore(user: userEntity);
+
       return Right(AppUserModel.fromFirebaseUser(user));
     } on CustomException catch (e) {
       return Left(ServerFaileur(message: e.message));
@@ -68,5 +81,13 @@ class AuthRepoImpl implements AuthRepo {
     var jsonData = jsonEncode(AppUserModel.fromEntity(userEntity).toJosn());
     await SharedPreferenceSingleton.setString(kuserData, jsonData);
     return userEntity;
+  }
+
+  Future addUserDataToFirestore({required AppUserEntity user}) async {
+    await databaseService.addDatatoDatabase(
+      path: BackendPoint.users,
+      data: AppUserModel.fromEntity(user).toJosn(),
+      documentId: user.uId,
+    );
   }
 }
