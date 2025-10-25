@@ -25,10 +25,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       onGenerateRoute: onGenerateRoute,
       initialRoute: SplashView.routeName,
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Social Media App')),
-        body: const Center(child: Text('Welcome to the Social Media App!')),
-      ),
     );
   }
 }
