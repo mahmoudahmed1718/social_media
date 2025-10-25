@@ -32,18 +32,20 @@ class FirestoreService implements DatabaseService {
   Future<void> deleteDataFromDatabase({
     required String path,
     required String documentId,
-  }) {
-    // TODO: implement deleteDataFromDatabase
-    throw UnimplementedError();
+  }) async {
+    await firebaseFirestore.collection(path).doc(documentId).delete();
   }
 
   @override
   Future<Map<String, dynamic>?> getDataFromDatabase({
     required String path,
     required String documentId,
-  }) {
-    // TODO: implement getDataFromDatabase
-    throw UnimplementedError();
+  }) async {
+    DocumentSnapshot doc = await firebaseFirestore
+        .collection(path)
+        .doc(documentId)
+        .get();
+    return doc.data() as Map<String, dynamic>?;
   }
 
   @override
@@ -51,8 +53,7 @@ class FirestoreService implements DatabaseService {
     required String path,
     required String documentId,
     required Map<String, dynamic> data,
-  }) {
-    // TODO: implement updateDataInDatabase
-    throw UnimplementedError();
+  }) async {
+    await firebaseFirestore.collection(path).doc(documentId).update(data);
   }
 }
