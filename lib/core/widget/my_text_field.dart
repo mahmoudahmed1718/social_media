@@ -19,7 +19,10 @@ class MyTextField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
-        prefixIcon: icon != null ? Icon(icon) : null,
+        hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+        suffixIcon: icon != null
+            ? Icon(icon, color: Theme.of(context).colorScheme.primary)
+            : null,
         enabledBorder: outlineBorder(
           context,
           Theme.of(context).colorScheme.tertiary,
