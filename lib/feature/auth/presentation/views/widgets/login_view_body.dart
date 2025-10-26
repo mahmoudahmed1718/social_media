@@ -26,13 +26,13 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: ListView(
         children: [
-          const SizedBox(height: 50),
+          const SizedBox(height: 60),
           Icon(
             Icons.login,
             size: 100,
             color: Theme.of(context).colorScheme.primary,
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
 
           Center(
             child: Text(
@@ -49,7 +49,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             hintText: 'Email',
             icon: Icons.email,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 16),
           MyTextField(
             controller: passwordController,
             hintText: 'Password',
@@ -61,8 +61,31 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               });
             },
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           MyButton(text: 'Login', onTap: () {}),
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Not a member...?',
+                style: TextStyle(
+                  fontSize: Styles.style16,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Register now',
+                  style: TextStyle(
+                    fontSize: Styles.style16,
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
