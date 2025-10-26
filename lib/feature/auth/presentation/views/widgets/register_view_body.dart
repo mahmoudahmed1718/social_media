@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:social_media/core/utils/styles.dart';
 import 'package:social_media/core/widget/my_button.dart';
 import 'package:social_media/core/widget/my_text_field.dart';
+import 'package:social_media/feature/auth/presentation/views/login_view.dart';
 
 class RegisterViewBody extends StatefulWidget {
   const RegisterViewBody({super.key});
@@ -94,14 +95,16 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Not a member...?',
+                'Already have an account...?',
                 style: TextStyle(
                   fontSize: Styles.style16,
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, LoginView.routeName);
+                },
                 child: Text(
                   'Login now',
                   style: TextStyle(

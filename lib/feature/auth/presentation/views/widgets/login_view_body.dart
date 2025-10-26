@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:social_media/core/utils/styles.dart';
 import 'package:social_media/core/widget/my_button.dart';
 import 'package:social_media/core/widget/my_text_field.dart';
+import 'package:social_media/feature/auth/presentation/views/register_view.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -75,7 +76,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, RegisterView.routeName);
+                },
                 child: Text(
                   'Register now',
                   style: TextStyle(
