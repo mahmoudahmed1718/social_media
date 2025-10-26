@@ -7,11 +7,13 @@ class MyTextField extends StatelessWidget {
     required this.hintText,
     this.obscureText,
     this.icon,
+    this.onPressed,
   });
   final TextEditingController controller;
   final String hintText;
   final bool? obscureText;
   final IconData? icon;
+  final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -20,9 +22,10 @@ class MyTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
-        suffixIcon: icon != null
-            ? Icon(icon, color: Theme.of(context).colorScheme.primary)
-            : null,
+        suffixIcon: IconButton(
+          onPressed: onPressed,
+          icon: Icon(icon, color: Theme.of(context).colorScheme.primary),
+        ),
         enabledBorder: outlineBorder(
           context,
           Theme.of(context).colorScheme.tertiary,

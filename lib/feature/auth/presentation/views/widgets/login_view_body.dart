@@ -12,7 +12,7 @@ class LoginViewBody extends StatefulWidget {
 class _LoginViewBodyState extends State<LoginViewBody> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  bool isObscure = true;
   @override
   void dispose() {
     emailController.dispose();
@@ -21,37 +21,47 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(
-          Icons.login,
-          size: 100,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        const SizedBox(height: 20),
-
-        Text(
-          'welcome Back...,you have been missed',
-          style: TextStyle(
-            fontSize: Styles.style16,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: ListView(
+        children: [
+          const SizedBox(height: 50),
+          Icon(
+            Icons.login,
+            size: 100,
             color: Theme.of(context).colorScheme.primary,
           ),
-        ),
-        const SizedBox(height: 20),
-        MyTextField(
-          controller: emailController,
-          hintText: 'Email',
-          icon: Icons.email,
-        ),
-        const SizedBox(height: 16),
-        MyTextField(
-          controller: passwordController,
-          hintText: 'Password',
-          obscureText: true,
-          icon: Icons.lock,
-        ),
-      ],
+          const SizedBox(height: 20),
+
+          Center(
+            child: Text(
+              'welcome Back...,you have been missed',
+              style: TextStyle(
+                fontSize: Styles.style16,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          MyTextField(
+            controller: emailController,
+            hintText: 'Email',
+            icon: Icons.email,
+          ),
+          const SizedBox(height: 16),
+          MyTextField(
+            controller: passwordController,
+            hintText: 'Password',
+            obscureText: isObscure,
+            icon: isObscure ? Icons.visibility : Icons.visibility_off,
+            onPressed: () {
+              setState(() {
+                isObscure = !isObscure;
+              });
+            },
+          ),
+        ],
+      ),
     );
   }
 }
