@@ -21,6 +21,8 @@ class MyTextField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
+        fillColor: Theme.of(context).colorScheme.tertiary,
+        filled: true,
         hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
         suffixIcon: IconButton(
           onPressed: onPressed,

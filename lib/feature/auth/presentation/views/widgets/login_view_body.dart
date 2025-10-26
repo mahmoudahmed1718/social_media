@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_media/core/utils/styles.dart';
+import 'package:social_media/core/widget/my_button.dart';
 import 'package:social_media/core/widget/my_text_field.dart';
 
 class LoginViewBody extends StatefulWidget {
@@ -48,7 +49,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             hintText: 'Email',
             icon: Icons.email,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 10),
           MyTextField(
             controller: passwordController,
             hintText: 'Password',
@@ -60,6 +61,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               });
             },
           ),
+          const SizedBox(height: 16),
+          MyButton(text: 'Login', onTap: () {}),
         ],
       ),
     );
