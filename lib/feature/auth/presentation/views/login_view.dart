@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media/core/services/get_it_service.dart';
+import 'package:social_media/feature/auth/domain/repo/auth_repo.dart';
 import 'package:social_media/feature/auth/presentation/manger/auth/auth_cubit.dart';
 import 'package:social_media/feature/auth/presentation/views/widgets/login_view_body_bloc_consumer.dart';
 
@@ -11,9 +12,7 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: BlocProvider(
-        create: (context) => AuthCubit(repo: 
-        
-        ),
+        create: (context) => AuthCubit(repo: getIt.get<AuthRepo>()),
         child: Scaffold(body: LoginViewBodyBlocConsumer()),
       ),
     );
