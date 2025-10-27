@@ -15,6 +15,8 @@ class LoginViewBodyBlocConsumer extends StatelessWidget {
           showSnakbar(context, 'Login Successfully');
           // ignore: avoid_types_as_parameter_names
           Navigator.pushNamedAndRemoveUntil(context, '', (route) => false);
+        } else if (state is AuthFailure) {
+          showSnakbar(context, state.errorMessage);
         }
       },
       builder: (context, state) {
