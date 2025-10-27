@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media/core/helper/snak_bar_method.dart';
+import 'package:social_media/core/widget/modal_progress_hud_loading_widget.dart';
 import 'package:social_media/feature/auth/presentation/manger/auth/auth_cubit.dart';
 import 'package:social_media/feature/auth/presentation/views/widgets/login_view_body.dart';
 
@@ -20,7 +21,11 @@ class LoginViewBodyBlocConsumer extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return LoginViewBody();
+        return ModalProgressHudIsLoadingWidget(
+          isLoading: state is AuthLoading,
+          child: const LoginViewBody(),
+        );
+        //x
       },
     );
   }
