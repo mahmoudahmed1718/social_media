@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_media/feature/home/presentation/view/widgets/home_view_body.dart';
+import 'package:social_media/feature/home/presentation/view/widgets/my_drawer.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -7,7 +8,8 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home View')),
+      appBar: AppBar(centerTitle: true, title: const Text('Home View')),
+      drawer: MyDrawer(),
       body: HomeViewBody(),
     );
   }
