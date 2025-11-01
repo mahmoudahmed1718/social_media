@@ -8,15 +8,18 @@ class MyTextField extends StatelessWidget {
     this.obscureText,
     this.icon,
     this.onPressed,
+    this.onchanged,
   });
   final TextEditingController controller;
   final String hintText;
   final bool? obscureText;
   final IconData? icon;
   final VoidCallback? onPressed;
+  final void Function(String?)? onchanged;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onchanged,
       obscureText: obscureText ?? false,
       controller: controller,
       decoration: InputDecoration(
