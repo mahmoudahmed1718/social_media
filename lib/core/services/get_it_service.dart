@@ -12,7 +12,7 @@ void setupGetItService() {
   getIt.registerSingleton<AuthRepo>(
     AuthRepoImpl(
       firebaseAuthService: getIt.get<FirebaseAuthService>(),
-      databaseService: getIt.get<FirestoreService>(),
+      databaseService: getIt.get<DatabaseService>(),
     ),
   );
 }
