@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media/core/utils/styles.dart';
 import 'package:social_media/core/widget/my_button.dart';
 import 'package:social_media/core/widget/my_text_field.dart';
+import 'package:social_media/feature/auth/presentation/manger/auth/auth_cubit.dart';
 import 'package:social_media/feature/auth/presentation/views/register_view.dart';
 
 class LoginViewBody extends StatefulWidget {
@@ -52,12 +54,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             ),
             const SizedBox(height: 20),
             MyTextField(
+              onchanged: (value) => email = value,
               controller: emailController,
               hintText: 'Email',
               icon: Icons.email,
             ),
             const SizedBox(height: 16),
             MyTextField(
+              onchanged: (value) => password = value,
               controller: passwordController,
               hintText: 'Password',
               obscureText: isObscure,
@@ -69,7 +73,21 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               },
             ),
             const SizedBox(height: 24),
-            MyButton(text: 'Login', onTap: () {}),
+            MyButton(
+              text: 'Login',
+              onTap: () {
+                if (formKey.currentState!.validate()) {
+                  formKey.currentState!.save();
+                  BlocProvider.of<AuthCubit>(
+                    context,
+                  ).login(email: email!, password: password!);
+                } else {
+                  setState(() {
+                    autovalidateMode = AutovalidateMode.always;
+                  });
+                }
+              },
+            ),
             const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
