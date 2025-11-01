@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media/core/services/get_it_service.dart';
 import 'package:social_media/feature/auth/domain/repo/auth_repo.dart';
 import 'package:social_media/feature/auth/presentation/manger/auth/auth_cubit.dart';
-import 'package:social_media/feature/auth/presentation/views/widgets/register_view_body.dart';
+
+import 'package:social_media/feature/auth/presentation/views/widgets/register_view_body_bloc_consumer.dart';
 
 class RegisterView extends StatelessWidget {
   static const String routeName = 'register_view';
@@ -12,7 +13,9 @@ class RegisterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthCubit(repo: getIt.get<AuthRepo>()),
-      child: Scaffold(body: const SafeArea(child: RegisterViewBody())),
+      child: Scaffold(
+        body: const SafeArea(child: RegisterViewBodyBlocConsumer()),
+      ),
     );
   }
 }
