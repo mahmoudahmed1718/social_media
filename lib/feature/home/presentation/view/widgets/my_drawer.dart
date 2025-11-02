@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:social_media/core/services/firebase_auth_service.dart';
+import 'package:social_media/feature/auth/presentation/views/login_view.dart';
 import 'package:social_media/feature/home/presentation/view/widgets/my_drawer_tile.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -36,7 +38,54 @@ class MyDrawer extends StatelessWidget {
             MyDrawerTile(
               title: 'L O G O U T ',
               icon: Icons.logout,
-              onTap: () {},
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(
+                        'Confirm Logout',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
+                      content: Text(
+                        'Are you sure you want to logout?',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            // Perform logout operation here
+                            Navigator.of(context).pop(); // Close the dialog
+                            FirebaseAuthService().signOut();
+                            Navigator.of(
+                              context,
+                            ).pushReplacementNamed(LoginView.routeName);
+                          },
+                          child: Text(
+                            'Logout',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
             ),
           ],
         ),

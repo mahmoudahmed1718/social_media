@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:social_media/core/services/firebase_auth_service.dart';
 import 'package:social_media/core/utils/assets.dart';
 import 'package:social_media/feature/auth/presentation/views/login_view.dart';
+import 'package:social_media/feature/home/presentation/view/home_view.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -20,6 +22,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
     super.initState();
 
     // Animation controller
+
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -101,25 +104,20 @@ class _SplashViewBodyState extends State<SplashViewBody>
   }
 
   void excuteNavigation() {
-    //   var isUserLoggedIn = FirebaseAuthServices().isUserLoggedIn();
-
-    //   if (isUserLoggedIn) {
-    //     Navigator.pushNamedAndRemoveUntil(
-    //       context,
-    //       HomePage.routeName,
-    //       (route) => false,
-    //     );
-    //   } else {
-    //     Navigator.pushNamedAndRemoveUntil(
-    //       context,
-    //       LoginPage.routeName,
-    //       (route) => false,
-    //     );
-    //   }
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      LoginView.routeName,
-      (route) => false,
-    );
+    FirebaseAuthService().isUserLoggedIn().then((isLoggedIn) {
+      if (isLoggedIn) {
+        Navigator.pushReplacement(
+          // ignore: use_build_context_synchronously
+          context,
+          MaterialPageRoute(builder: (context) => const HomeView()),
+        );
+      } else {
+        Navigator.pushReplacement(
+          // ignore: use_build_context_synchronously
+          context,
+          MaterialPageRoute(builder: (context) => const LoginView()),
+        );
+      }
+    });
   }
 }
