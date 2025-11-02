@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media/core/services/firebase_auth_service.dart';
+import 'package:social_media/feature/auth/presentation/manger/auth/auth_cubit.dart';
 import 'package:social_media/feature/auth/presentation/views/login_view.dart';
 import 'package:social_media/feature/home/presentation/view/widgets/my_drawer_tile.dart';
 import 'package:social_media/feature/profile/presentation/views/profile_view.dart';
@@ -33,12 +35,23 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             MyDrawerTile(
-              title: 'P R O F I L E ',
+              title: 'P R O F I L E',
               icon: Icons.person,
-              onTap: () {
-                Navigator.of(context).pushNamed(ProfileView.routeName);
+              onTap: () async {
+                final authCubit = context.read<AuthCubit>();
+
+                final user = await authCubit.getCurrentUser();
+
+                // ✅ Safely use context after async gap
+                if (!context.mounted) return;
+
+                Navigator.of(context).pushNamed(
+                  ProfileView.routeName,
+                  arguments: ProfileView(userUid: user.uId),
+                );
               },
             ),
+
             MyDrawerTile(
               title: 'S E T T I N G S ',
               icon: Icons.settings,

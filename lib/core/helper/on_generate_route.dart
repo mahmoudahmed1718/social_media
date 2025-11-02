@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:social_media/core/services/get_it_service.dart';
-import 'package:social_media/feature/auth/domain/repo/auth_repo.dart';
-import 'package:social_media/feature/auth/presentation/manger/auth/auth_cubit.dart';
 import 'package:social_media/feature/auth/presentation/views/login_view.dart';
 import 'package:social_media/feature/auth/presentation/views/register_view.dart';
 import 'package:social_media/feature/home/presentation/view/home_view.dart';
-import 'package:social_media/feature/profile/presentation/views/profile_view.dart';
+
 import 'package:social_media/feature/splash/presentation/views/splash_view.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -22,14 +18,6 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
 
     case HomeView.routeName:
       return MaterialPageRoute(builder: (context) => const HomeView());
-
-    case ProfileView.routeName:
-      return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => AuthCubit(repo: getIt.get<AuthRepo>()),
-          child: const ProfileView(),
-        ),
-      );
 
     default:
       return MaterialPageRoute(builder: (context) => const Scaffold());

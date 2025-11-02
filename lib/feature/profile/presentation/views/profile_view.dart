@@ -4,7 +4,8 @@ import 'package:social_media/feature/auth/domain/entites/app_user.dart';
 import 'package:social_media/feature/auth/presentation/manger/auth/auth_cubit.dart';
 
 class ProfileView extends StatefulWidget {
-  const ProfileView({super.key});
+  const ProfileView({super.key, required this.userUid});
+  final String userUid;
   static const String routeName = 'profile';
 
   @override
