@@ -39,12 +39,13 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthInitial());
   }
 
-  Future<void> getCurrentUser() async {
+  Future<AppUserEntity> getCurrentUser() async {
     emit(AuthLoading());
     final user = await repo.getCurrentUser();
     user.fold(
       (l) => emit(AuthFailure(l.message)),
       (r) => emit(AuthSuccess(user: r)),
     );
+    return user.fold((l) => throw Exception(l.message), (r) => r);
   }
 }

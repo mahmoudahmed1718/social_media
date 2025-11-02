@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:social_media/core/services/firebase_auth_service.dart';
 import 'package:social_media/feature/auth/presentation/views/login_view.dart';
 import 'package:social_media/feature/home/presentation/view/widgets/my_drawer_tile.dart';
+import 'package:social_media/feature/profile/presentation/views/profile_view.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -34,7 +35,9 @@ class MyDrawer extends StatelessWidget {
             MyDrawerTile(
               title: 'P R O F I L E ',
               icon: Icons.person,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(ProfileView.routeName);
+              },
             ),
             MyDrawerTile(
               title: 'S E T T I N G S ',
