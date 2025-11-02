@@ -28,9 +28,9 @@ class ProfileUserModel extends ProfileUserEntity {
       uId: json[BackendPoint.uId],
       name: json[BackendPoint.name],
       email: json[BackendPoint.email],
-      username: json[BackendPoint.username],
-      bio: json[BackendPoint.bio],
-      profilePictureUrl: json[BackendPoint.profilePictureUrl],
+      username: json[BackendPoint.username] ?? '',
+      bio: json[BackendPoint.bio] ?? '',
+      profilePictureUrl: json[BackendPoint.profilePictureUrl] ?? '',
     );
   }
 }
