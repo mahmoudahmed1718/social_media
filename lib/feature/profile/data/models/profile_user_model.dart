@@ -10,6 +10,17 @@ class ProfileUserModel extends ProfileUserEntity {
     required super.name,
     required super.email,
   });
+  // convert entity to model
+  factory ProfileUserModel.fromEntity(ProfileUserEntity entity) {
+    return ProfileUserModel(
+      uId: entity.uId,
+      name: entity.name,
+      email: entity.email,
+      username: entity.username,
+      bio: entity.bio,
+      profilePictureUrl: entity.profilePictureUrl,
+    );
+  }
   // convert appuser to json
   Map<String, dynamic> toJson() {
     return {
