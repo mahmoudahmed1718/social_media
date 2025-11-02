@@ -24,7 +24,11 @@ class MyDrawer extends StatelessWidget {
             ),
             Divider(color: Theme.of(context).colorScheme.secondary),
 
-            MyDrawerTile(title: 'H O M E ', icon: Icons.home, onTap: () {}),
+            MyDrawerTile(
+              title: 'H O M E ',
+              icon: Icons.home,
+              onTap: () => Navigator.of(context).pop,
+            ),
             MyDrawerTile(
               title: 'P R O F I L E ',
               icon: Icons.person,
