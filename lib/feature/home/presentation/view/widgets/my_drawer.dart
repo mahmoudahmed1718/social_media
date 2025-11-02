@@ -36,6 +36,12 @@ class MyDrawer extends StatelessWidget {
               onTap: () {},
             ),
             MyDrawerTile(
+              title: 'S E A R C H',
+              icon: Icons.search,
+              onTap: () {},
+            ),
+            Spacer(),
+            MyDrawerTile(
               title: 'L O G O U T ',
               icon: Icons.logout,
               onTap: () {
@@ -87,6 +93,7 @@ class MyDrawer extends StatelessWidget {
                 );
               },
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
