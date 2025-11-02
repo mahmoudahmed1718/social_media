@@ -27,7 +27,9 @@ class MyDrawer extends StatelessWidget {
             MyDrawerTile(
               title: 'H O M E ',
               icon: Icons.home,
-              onTap: () => Navigator.of(context).pop,
+              onTap: () {
+                Navigator.of(context).pop();
+              },
             ),
             MyDrawerTile(
               title: 'P R O F I L E ',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:social_media/feature/auth/presentation/views/login_view.dart';
 import 'package:social_media/feature/auth/presentation/views/register_view.dart';
 import 'package:social_media/feature/home/presentation/view/home_view.dart';
+import 'package:social_media/feature/profile/presentation/views/profile_view.dart';
 import 'package:social_media/feature/splash/presentation/views/splash_view.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -17,6 +18,9 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
 
     case HomeView.routeName:
       return MaterialPageRoute(builder: (context) => const HomeView());
+
+    case ProfileView.routeName:
+      return MaterialPageRoute(builder: (context) => const ProfileView());
 
     default:
       return MaterialPageRoute(builder: (context) => const Scaffold());
