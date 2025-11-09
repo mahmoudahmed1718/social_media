@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media/core/services/firebase_auth_service.dart';
+import 'package:social_media/core/services/get_it_service.dart';
+import 'package:social_media/feature/auth/domain/repo/auth_repo.dart';
 import 'package:social_media/feature/auth/presentation/manger/auth/auth_cubit.dart';
 import 'package:social_media/feature/auth/presentation/views/login_view.dart';
 import 'package:social_media/feature/home/presentation/view/widgets/my_drawer_tile.dart';
+import 'package:social_media/feature/profile/domain/repo/profile_repo.dart';
+import 'package:social_media/feature/profile/presentation/manger/profile/profile_cubit.dart';
 import 'package:social_media/feature/profile/presentation/views/profile_view.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -34,22 +38,34 @@ class MyDrawer extends StatelessWidget {
                 Navigator.of(context).pop();
               },
             ),
-            MyDrawerTile(
-              title: 'P R O F I L E',
-              icon: Icons.person,
-              onTap: () async {
-                final authCubit = context.read<AuthCubit>();
-
-                final user = await authCubit.getCurrentUser();
-
-                // ✅ Safely use context after async gap
-                if (!context.mounted) return;
-
-                Navigator.of(context).pushNamed(
-                  ProfileView.routeName,
-                  arguments: ProfileView(userUid: user.uId),
-                );
-              },
+            MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (_) =>
+                      ProfileCubit(profileRepo: getIt.get<ProfileRepo>()),
+                ),
+                BlocProvider(
+                  create: (_) => AuthCubit(repo: getIt.get<AuthRepo>()),
+                ),
+              ],
+              child: Builder(
+                builder: (innerContext) {
+                  return MyDrawerTile(
+                    title: 'P R O F I L E',
+                    icon: Icons.person,
+                    onTap: () async {
+                      Navigator.of(innerContext).pop();
+                      final authCubit = innerContext.read<AuthCubit>();
+                      final user = await authCubit.getCurrentUser();
+                      if (!innerContext.mounted) return;
+                      Navigator.of(innerContext).pushNamed(
+                        ProfileView.routeName,
+                        arguments: ProfileView(userUid: user.uId),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
 
             MyDrawerTile(

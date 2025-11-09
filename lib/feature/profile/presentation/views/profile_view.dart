@@ -13,27 +13,31 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  late final authCubit = context.read<AuthCubit>();
+  AuthCubit? authCubit;
   AppUserEntity? currentUser;
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _loadUser();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      authCubit = context.read<AuthCubit>();
+      _loadUser();
+    });
   }
 
   Future<void> _loadUser() async {
+    if (authCubit == null) return;
     try {
-      final user = await authCubit.getCurrentUser();
+      final user = await authCubit!.getCurrentUser();
+      if (!mounted) return;
       setState(() {
         currentUser = user;
         isLoading = false;
       });
     } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
+      if (!mounted) return;
+      setState(() => isLoading = false);
       debugPrint('Error loading user: $e');
     }
   }
@@ -50,6 +54,7 @@ class _ProfileViewState extends State<ProfileView> {
 
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: Text(currentUser!.email)),
+      body: Center(child: Text('Profile View for User ID: ${widget.userUid}')),
     );
   }
 }
