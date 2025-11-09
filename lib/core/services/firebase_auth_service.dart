@@ -1,8 +1,11 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:social_media/core/errors/custom_excption.dart';
+import 'package:social_media/core/services/backend_point.dart';
+import 'package:social_media/feature/auth/domain/entites/app_user.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -82,8 +85,24 @@ class FirebaseAuthService {
     await _firebaseAuth.signOut();
   }
 
-  Future<User?> getCurrentUser() async {
-    return _firebaseAuth.currentUser;
+  Future<AppUserEntity> getCurrentUser() async {
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+    if (firebaseUser == null) throw Exception('No logged in user');
+
+    // Fetch user data from Firestore
+    final doc = await FirebaseFirestore.instance
+        .collection(BackendPoint.users)
+        .doc(firebaseUser.uid)
+        .get();
+
+    if (!doc.exists) throw Exception('User document not found');
+
+    final data = doc.data()!;
+    return AppUserEntity(
+      uId: firebaseUser.uid,
+      name: data['name'] ?? '',
+      email: data['email'] ?? '',
+    );
   }
 
   Future<bool> isUserLoggedIn() async {

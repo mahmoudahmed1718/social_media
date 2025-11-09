@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_media/core/services/firebase_auth_service.dart';
-import 'package:social_media/core/services/get_it_service.dart';
-import 'package:social_media/feature/auth/domain/repo/auth_repo.dart';
 import 'package:social_media/feature/auth/presentation/manger/auth/auth_cubit.dart';
 import 'package:social_media/feature/auth/presentation/views/login_view.dart';
 import 'package:social_media/feature/home/presentation/view/widgets/my_drawer_tile.dart';
-import 'package:social_media/feature/profile/domain/repo/profile_repo.dart';
-import 'package:social_media/feature/profile/presentation/manger/profile/profile_cubit.dart';
 import 'package:social_media/feature/profile/presentation/views/profile_view.dart';
 
 class MyDrawer extends StatelessWidget {
