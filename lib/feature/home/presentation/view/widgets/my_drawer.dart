@@ -38,34 +38,20 @@ class MyDrawer extends StatelessWidget {
                 Navigator.of(context).pop();
               },
             ),
-            MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (_) =>
-                      ProfileCubit(profileRepo: getIt.get<ProfileRepo>()),
-                ),
-                BlocProvider(
-                  create: (_) => AuthCubit(repo: getIt.get<AuthRepo>()),
-                ),
-              ],
-              child: Builder(
-                builder: (innerContext) {
-                  return MyDrawerTile(
-                    title: 'P R O F I L E',
-                    icon: Icons.person,
-                    onTap: () async {
-                      Navigator.of(innerContext).pop();
-                      final authCubit = innerContext.read<AuthCubit>();
-                      final user = await authCubit.getCurrentUser();
-                      if (!innerContext.mounted) return;
-                      Navigator.of(innerContext).pushNamed(
-                        ProfileView.routeName,
-                        arguments: ProfileView(userUid: user.uId),
-                      );
-                    },
-                  );
-                },
-              ),
+            MyDrawerTile(
+              title: 'P R O F I L E',
+              icon: Icons.person,
+              onTap: () async {
+                Navigator.of(context).pop();
+                final authCubit = context.read<AuthCubit>();
+                final user = await authCubit.getCurrentUser();
+                if (!context.mounted) return;
+
+                Navigator.of(context).pushNamed(
+                  ProfileView.routeName,
+                  arguments: user.uId, // ✅ only pass UID
+                );
+              },
             ),
 
             MyDrawerTile(
